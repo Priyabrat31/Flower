@@ -101,26 +101,20 @@
       border-radius: 19px;
       overflow: hidden;
     }
-    .stage-grid {
-      position: absolute; inset: 0; opacity: .24; pointer-events: none;
-      background-image: linear-gradient(rgba(91,117,94,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(91,117,94,.08) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: radial-gradient(ellipse at center, #000 15%, transparent 78%);
-    }
-    .flower-svg { position: relative; z-index: 1; width: min(100%, 610px); max-height: 540px; overflow: visible; filter: drop-shadow(0 18px 15px rgba(48,60,43,.10)); }
-    .flower-svg .part { cursor: pointer; transform-box: fill-box; transform-origin: center; transition: filter .22s ease, opacity .22s ease, transform .28s ease; outline: none; }
-    .flower-svg .part:hover { filter: brightness(1.06) drop-shadow(0 0 7px rgba(48,94,69,.32)); }
-    .flower-svg .part.is-selected { filter: brightness(1.08) drop-shadow(0 0 10px rgba(199,139,68,.72)); }
-    .flower-svg .part:focus-visible { filter: drop-shadow(0 0 5px #2e7756); }
-    .flower-svg .petal-shape { fill: #e7a0b0; stroke: #c9768d; stroke-width: 2.2; }
-    .flower-svg .petal-inner { fill: #f4c1cb; opacity: .8; }
-    .flower-svg .sepal-shape { fill: #72966d; stroke: #4d7555; stroke-width: 2; }
-    .flower-svg .filament-shape { fill: none; stroke: #c89036; stroke-width: 7; stroke-linecap: round; }
-    .flower-svg .anther-shape { fill: #e4b34e; stroke: #ad7927; stroke-width: 2; }
-    .flower-svg .female-style { fill: none; stroke: #648b64; stroke-width: 13; stroke-linecap: round; }
-    .flower-svg .stigma-shape { fill: #9d6687; stroke: #754866; stroke-width: 2; }
-    .flower-svg .ovary-shape { fill: #81a36f; stroke: #527b51; stroke-width: 2.5; }
-    .flower-svg .shine { fill: rgba(255,255,255,.38); }
+    .stage-grid { display: none; }
+    .flower-image-wrap { position: relative; z-index: 1; width: min(100%, 670px); aspect-ratio: 803 / 628; max-height: 540px; margin: auto; flex: none; filter: drop-shadow(0 18px 15px rgba(48,60,43,.12)); }
+    .flower-photo { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 13px; }
+    .flower-hotspot { position: absolute; z-index: 3; border: 2px solid transparent; border-radius: 10px; background: transparent; padding: 0; cursor: pointer; transition: background .16s ease, border-color .16s ease, box-shadow .16s ease; }
+    .flower-hotspot:hover, .flower-hotspot:focus-visible { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.88); box-shadow: 0 0 0 3px rgba(23,61,50,.25); outline: none; }
+    .flower-hotspot.is-selected { background: rgba(255,221,140,.18); border-color: #f7d88c; box-shadow: 0 0 0 3px rgba(23,61,50,.28); }
+    .hotspot-stamen { left: 2.8%; top: 35%; width: 16%; height: 7.5%; }
+    .hotspot-anther { left: 21.7%; top: 28.8%; width: 15%; height: 7.5%; }
+    .hotspot-filament { left: 21.7%; top: 42%; width: 15.5%; height: 7.5%; }
+    .hotspot-stigma { left: 71.6%; top: 4.5%; width: 16.2%; height: 8%; }
+    .hotspot-style { left: 68.7%; top: 23.5%; width: 14.1%; height: 8%; }
+    .hotspot-petal { left: 84.2%; top: 35.2%; width: 13.5%; height: 8%; }
+    .hotspot-ovary { left: 61.9%; top: 68.5%; width: 14%; height: 8%; }
+    .hotspot-sepal { left: 72.7%; top: 90.5%; width: 14%; height: 7%; }
     .stage-caption { position: absolute; bottom: 17px; right: 19px; z-index: 2; color: #8d988d; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
     .model-footer { padding: 0 22px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: 11px; }
     .tap-hint { display: flex; align-items: center; gap: 7px; }
@@ -130,13 +124,13 @@
     .detail-body { padding: 23px; display: flex; flex-direction: column; flex: 1; }
     .empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; flex: 1; padding: 20px 8px; }
     .empty-art { width: 112px; height: 112px; border-radius: 32px; display: grid; place-items: center; background: #f2f2e9; margin-bottom: 21px; }
-    .empty-art svg { width: 66px; height: 66px; }
+    .empty-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .empty-state h3 { font-size: 20px; margin-bottom: 8px; letter-spacing: -.04em; }
     .empty-state p { max-width: 260px; color: var(--muted); font-size: 13px; line-height: 1.65; margin: 0; }
     .detail-kicker { color: var(--leaf); font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 8px; }
     .detail-title { font-size: clamp(25px, 2.4vw, 32px); line-height: 1.1; letter-spacing: -.05em; margin: 0 0 16px; }
-    .detail-art-wrap { height: 240px; border-radius: 18px; background: linear-gradient(145deg, #f7f5ed, #f0f0e6); border: 1px solid #e9e9de; display: grid; place-items: center; margin-bottom: 21px; overflow: hidden; }
-    .detail-art-wrap svg { width: 82%; height: 82%; max-height: 210px; }
+    .detail-art-wrap { height: 240px; border-radius: 18px; background: linear-gradient(145deg, #f7f5ed, #f0f0e6); border: 1px solid #e9e9de; display: grid; place-items: center; margin-bottom: 21px; overflow: hidden; padding: 8px; }
+    .detail-art-wrap .detail-art-image { width: 100%; height: 100%; max-height: 224px; object-fit: contain; display: block; }
     .detail-description { color: #66756b; font-size: 14px; line-height: 1.75; margin: 0; }
     .detail-bottom { padding-top: 22px; margin-top: auto; }
     .detail-bottom .btn { width: 100%; }
@@ -153,8 +147,11 @@
     .room-content { display: grid; grid-template-columns: 1fr 150px; gap: 17px; align-items: center; }
     .room-code-large { font: 800 27px Manrope, sans-serif; letter-spacing: .15em; color: var(--forest); margin: 6px 0 11px; }
     .room-instruction { color: var(--muted); font-size: 11px; line-height: 1.55; }
-    #qrCode { width: 150px; height: 150px; border-radius: 14px; display: grid; place-items: center; background: #fff; border: 1px solid var(--line); padding: 7px; }
-    #qrCode img, #qrCode canvas { max-width: 100%; max-height: 100%; }
+
+    .room-code-help { width: 150px; min-height: 150px; border: 1px solid var(--line); border-radius: 14px; background: #f5f7f1; padding: 13px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px; }
+    .room-code-icon { width: 39px; height: 39px; border-radius: 12px; background: #e5eee3; color: var(--forest); display: grid; place-items: center; font-size: 25px; font-weight: 800; }
+    .room-code-help strong { font-size: 12px; }
+    .room-code-help span { color: var(--muted); font-size: 10px; line-height: 1.45; }
     .remote-url { margin-top: 17px; display: flex; gap: 8px; }
     .remote-url input { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; color: #718075; background: #f9faf6; font-size: 11px; }
     .footer-note { text-align: center; padding: 24px 0 2px; color: #8a968c; font-size: 10px; letter-spacing: .03em; }
@@ -163,7 +160,8 @@
     .welcome-wrap { min-height: calc(100vh - 76px); display: grid; place-items: center; padding: 35px 20px 65px; }
     .welcome { width: min(900px, 100%); text-align: center; }
     .welcome-flower { width: 118px; height: 118px; margin: 0 auto 20px; border-radius: 35px; display: grid; place-items: center; background: #e9efe5; }
-    .welcome-flower svg { width: 78px; height: 78px; }
+    .welcome-flower { overflow: hidden; }
+    .welcome-flower img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .welcome h1 { font-size: clamp(36px, 6vw, 62px); margin: 13px 0 13px; }
     .welcome .lead { margin: 0 auto; max-width: 560px; font-size: 15px; }
     .role-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 37px auto 0; max-width: 700px; text-align: left; }
@@ -198,7 +196,8 @@
     .remote-part-btn { border: 1px solid #e4e7dc; background: #fffefa; color: var(--ink); border-radius: 16px; min-height: 66px; padding: 12px 13px; display: flex; align-items: center; gap: 10px; text-align: left; transition: border .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease; }
     .remote-part-btn:hover { border-color: #b6c5b5; transform: translateY(-1px); }
     .remote-part-btn.active { background: #eaf0e8; border-color: #9db69e; box-shadow: inset 0 0 0 1px #b8cbb8; }
-    .part-swatch { flex: none; width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: #f3e8e7; color: #a95c72; }
+    .part-swatch { flex: none; width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; overflow: hidden; background: #fff; border: 1px solid #eee5df; }
+    .part-swatch img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .remote-part-btn:nth-child(2) .part-swatch, .remote-part-btn:nth-child(3) .part-swatch, .remote-part-btn:nth-child(9) .part-swatch { background: #f6eedb; color: #987029; }
     .remote-part-btn:nth-child(4) .part-swatch, .remote-part-btn:nth-child(5) .part-swatch, .remote-part-btn:nth-child(6) .part-swatch, .remote-part-btn:nth-child(8) .part-swatch { background: #e8efe4; color: #547d56; }
     .remote-part-btn strong { font-size: 12px; line-height: 1.2; }
@@ -230,7 +229,7 @@
       .model-panel { min-height: 0; }
       .panel-topline { padding: 17px 17px 0; }
       .flower-stage { min-height: 390px; margin: 12px; padding: 8px; }
-      .flower-svg { max-height: 390px; }
+      .flower-image-wrap { width: min(100%, 520px); }
       .model-footer { padding: 0 15px 15px; }
       .detail-head { padding: 17px; }
       .detail-body { padding: 17px; }
@@ -243,7 +242,6 @@
       .join-row input { min-height: 42px; flex-basis: 100%; }
       .join-row .btn { width: 100%; }
       .room-content { grid-template-columns: 1fr 124px; gap: 10px; }
-      #qrCode { width: 124px; height: 124px; }
       .room-code-large { font-size: 23px; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -268,9 +266,7 @@
 
     <main id="welcomeScreen" class="welcome-wrap">
       <section class="welcome">
-        <div class="welcome-flower" aria-hidden="true">
-          <svg viewBox="0 0 100 100" fill="none"><g stroke="#C9768D" stroke-width="1.6"><ellipse cx="50" cy="25" rx="14" ry="25" fill="#E7A0B0"/><ellipse cx="26" cy="43" rx="14" ry="25" transform="rotate(-52 26 43)" fill="#F0C2CA"/><ellipse cx="74" cy="43" rx="14" ry="25" transform="rotate(52 74 43)" fill="#E7A0B0"/><ellipse cx="35" cy="70" rx="14" ry="25" transform="rotate(-120 35 70)" fill="#F0C2CA"/><ellipse cx="65" cy="70" rx="14" ry="25" transform="rotate(120 65 70)" fill="#E7A0B0"/></g><circle cx="50" cy="51" r="10" fill="#D8A647"/><path d="M50 59v17" stroke="#648B64" stroke-width="3" stroke-linecap="round"/></svg>
-        </div>
+        <div class="welcome-flower" aria-hidden="true"><img src="assets/main-flower.jpg" alt=""></div>
         <div class="eyebrow">A classroom exploration</div>
         <h1>Discover the parts<br>of a flower.</h1>
         <p class="lead">An interactive flower dissection model designed for Class 9 Biological Science. Explore each part on the Smart Board and control the lesson from your phone.</p>
@@ -278,7 +274,7 @@
           <article class="role-card">
             <div class="role-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg></div>
             <h2>Smart Board Display</h2>
-            <p>Open the flower model, create a room code and show the QR code for your phone remote.</p>
+            <p>Open the flower model, create a room code and share the phone remote link.</p>
             <button class="btn btn-primary" id="startDisplayBtn" type="button">Start main display <span aria-hidden="true">→</span></button>
           </article>
           <article class="role-card">
@@ -289,7 +285,7 @@
           </article>
         </div>
         <form class="join-row" id="joinForm">
-          <input id="joinCodeInput" type="text" maxlength="6" autocomplete="off" placeholder="Enter the 6-character room code" aria-label="Room code">
+          <input id="joinCodeInput" type="text" maxlength="8" autocomplete="off" placeholder="Enter the 8-character room code" aria-label="Room code">
           <button class="btn btn-primary" type="submit">Connect to display</button>
         </form>
       </section>
@@ -312,80 +308,27 @@
         <section class="panel model-panel">
           <div class="panel-topline"><span class="panel-label">Flower model</span><span class="hint">Tap a part to explore</span></div>
           <div class="flower-stage">
-            <div class="stage-grid"></div>
-            <svg class="flower-svg" id="flowerSvg" viewBox="0 0 660 570" role="img" aria-label="Interactive flower showing petals, sepals, stamen, stigma, style and ovary">
-              <defs>
-                <linearGradient id="petalGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5c4cd"/><stop offset="1" stop-color="#d9859c"/></linearGradient>
-                <linearGradient id="sepalGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9bb88a"/><stop offset="1" stop-color="#5f865e"/></linearGradient>
-                <linearGradient id="ovaryGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b2c994"/><stop offset="1" stop-color="#71976c"/></linearGradient>
-              </defs>
-              <!-- Sepals -->
-              <g class="part" data-part="sepal" tabindex="0" role="button" aria-label="Sepal">
-                <path class="sepal-shape" fill="url(#sepalGrad)" d="M330 407 C292 388 260 411 258 454 C290 450 315 435 330 407Z"/>
-                <path class="sepal-shape" fill="url(#sepalGrad)" d="M330 407 C368 388 400 411 402 454 C370 450 345 435 330 407Z"/>
-                <path class="sepal-shape" fill="url(#sepalGrad)" d="M330 411 C304 429 301 465 330 485 C359 465 356 429 330 411Z"/>
-                <path d="M330 417 284 445M330 417 376 445M330 421v49" stroke="#d0dfb7" stroke-width="2" opacity=".62" fill="none"/>
-              </g>
-              <!-- Petals -->
-              <g class="part" data-part="petal" tabindex="0" role="button" aria-label="Petal">
-                <path class="petal-shape" fill="url(#petalGrad)" d="M330 300 C270 270 263 194 299 117 C321 70 339 65 361 117 C397 194 390 270 330 300Z"/>
-                <path class="petal-shape" fill="url(#petalGrad)" d="M309 314 C242 322 178 274 154 206 C138 160 149 140 197 151 C267 168 317 226 309 314Z"/>
-                <path class="petal-shape" fill="url(#petalGrad)" d="M351 314 C418 322 482 274 506 206 C522 160 511 140 463 151 C393 168 343 226 351 314Z"/>
-                <path class="petal-shape" fill="url(#petalGrad)" d="M305 335 C275 393 212 414 153 390 C110 372 104 350 142 322 C199 281 271 293 305 335Z"/>
-                <path class="petal-shape" fill="url(#petalGrad)" d="M355 335 C385 393 448 414 507 390 C550 372 556 350 518 322 C461 281 389 293 355 335Z"/>
-                <path class="shine" d="M330 95c-20 56-18 111 0 165 8-57 7-111 0-165Z"/>
-                <path class="shine" d="M164 172c44 14 89 55 119 109-48-26-88-63-119-109Z"/>
-                <path class="shine" d="M496 172c-44 14-89 55-119 109 48-26 88-63 119-109Z"/>
-              </g>
-              <!-- Stamen: anthers and filaments -->
-              <g class="part" data-part="stamen" tabindex="0" role="button" aria-label="Stamen">
-                <path class="filament-shape" d="M330 426 C287 385 249 332 233 272"/>
-                <path class="filament-shape" d="M330 426 C303 371 293 314 292 244"/>
-                <path class="filament-shape" d="M330 426 C357 371 367 314 368 244"/>
-                <path class="filament-shape" d="M330 426 C373 385 411 332 427 272"/>
-                <ellipse class="anther-shape" cx="231" cy="267" rx="13" ry="25" transform="rotate(-22 231 267)"/>
-                <ellipse class="anther-shape" cx="291" cy="240" rx="12" ry="23" transform="rotate(-5 291 240)"/>
-                <ellipse class="anther-shape" cx="369" cy="240" rx="12" ry="23" transform="rotate(5 369 240)"/>
-                <ellipse class="anther-shape" cx="429" cy="267" rx="13" ry="25" transform="rotate(22 429 267)"/>
-              </g>
-              <g class="part" data-part="filament" tabindex="0" role="button" aria-label="Filament">
-                <path d="M330 426 C287 385 249 332 233 272" fill="none" stroke="transparent" stroke-width="22"/>
-                <path d="M330 426 C303 371 293 314 292 244" fill="none" stroke="transparent" stroke-width="22"/>
-                <path d="M330 426 C357 371 367 314 368 244" fill="none" stroke="transparent" stroke-width="22"/>
-                <path d="M330 426 C373 385 411 332 427 272" fill="none" stroke="transparent" stroke-width="22"/>
-              </g>
-              <g class="part" data-part="anther" tabindex="0" role="button" aria-label="Anther">
-                <ellipse cx="231" cy="267" rx="17" ry="29" fill="transparent" transform="rotate(-22 231 267)"/>
-                <ellipse cx="291" cy="240" rx="16" ry="28" fill="transparent" transform="rotate(-5 291 240)"/>
-                <ellipse cx="369" cy="240" rx="16" ry="28" fill="transparent" transform="rotate(5 369 240)"/>
-                <ellipse cx="429" cy="267" rx="17" ry="29" fill="transparent" transform="rotate(22 429 267)"/>
-              </g>
-              <!-- Female parts -->
-              <g class="part" data-part="style" tabindex="0" role="button" aria-label="Style">
-                <path class="female-style" d="M330 202 C327 263 333 327 330 393"/>
-                <path d="M330 218 C328 274 331 333 330 378" stroke="#b9d0a2" stroke-width="3" stroke-linecap="round" fill="none" opacity=".72"/>
-              </g>
-              <g class="part" data-part="ovary" tabindex="0" role="button" aria-label="Ovary">
-                <ellipse class="ovary-shape" fill="url(#ovaryGrad)" cx="330" cy="419" rx="38" ry="43"/>
-                <ellipse cx="318" cy="404" rx="10" ry="17" fill="#dce8c4" opacity=".45"/>
-              </g>
-              <g class="part" data-part="stigma" tabindex="0" role="button" aria-label="Stigma">
-                <path class="stigma-shape" d="M330 203 C309 196 305 174 319 165 C327 160 330 170 330 178 C330 168 335 160 343 165 C357 174 351 196 330 203Z"/>
-                <path d="M319 179c5 4 8 8 11 17 3-9 6-13 11-17" stroke="#d7a8c5" stroke-width="2" fill="none" stroke-linecap="round"/>
-              </g>
-            </svg>
-            <div class="stage-caption">Interactive botanical model</div>
+            <div class="flower-image-wrap" id="flowerHotspots" aria-label="Clickable realistic flower diagram">
+              <img class="flower-photo" src="assets/main-flower.jpg" alt="Realistic diagram of a flower with the stamen, anther, filament, stigma, style, ovary, petal and sepal labelled">
+              <button class="flower-hotspot hotspot-stamen" data-part="stamen" type="button" aria-label="Show Stamen details" title="Stamen"></button>
+              <button class="flower-hotspot hotspot-anther" data-part="anther" type="button" aria-label="Show Anther details" title="Anther"></button>
+              <button class="flower-hotspot hotspot-filament" data-part="filament" type="button" aria-label="Show Filament details" title="Filament"></button>
+              <button class="flower-hotspot hotspot-stigma" data-part="stigma" type="button" aria-label="Show Stigma details" title="Stigma"></button>
+              <button class="flower-hotspot hotspot-style" data-part="style" type="button" aria-label="Show Style details" title="Style"></button>
+              <button class="flower-hotspot hotspot-petal" data-part="petal" type="button" aria-label="Show Petal details" title="Petal"></button>
+              <button class="flower-hotspot hotspot-ovary" data-part="ovary" type="button" aria-label="Show Ovary details" title="Ovary"></button>
+              <button class="flower-hotspot hotspot-sepal" data-part="sepal" type="button" aria-label="Show Sepal details" title="Sepal"></button>
+            </div>
+            <div class="stage-caption">Realistic botanical diagram</div>
           </div>
-          <div class="model-footer"><span class="tap-hint"><span aria-hidden="true">◎</span> Select a coloured part to view its details</span><span>Class IX model</span></div>
+          <div class="model-footer"><span class="tap-hint"><span aria-hidden="true">◎</span> Select a labelled part to view its details</span><span>Class IX model</span></div>
         </section>
 
         <section class="panel detail-panel" aria-live="polite">
           <div class="detail-head"><h2>Part details</h2><span class="eyebrow" id="detailStep">WHOLE FLOWER</span></div>
           <div class="detail-body" id="detailBody">
             <div class="empty-state">
-              <div class="empty-art" aria-hidden="true">
-                <svg viewBox="0 0 100 100" fill="none"><g stroke="#C9768D" stroke-width="2"><ellipse cx="50" cy="24" rx="12" ry="22" fill="#E7A0B0"/><ellipse cx="28" cy="43" rx="12" ry="22" transform="rotate(-50 28 43)" fill="#F0C2CA"/><ellipse cx="72" cy="43" rx="12" ry="22" transform="rotate(50 72 43)" fill="#E7A0B0"/><ellipse cx="36" cy="68" rx="12" ry="22" transform="rotate(-120 36 68)" fill="#F0C2CA"/><ellipse cx="64" cy="68" rx="12" ry="22" transform="rotate(120 64 68)" fill="#E7A0B0"/></g><circle cx="50" cy="50" r="8" fill="#D8A647"/></svg>
-              </div>
+              <div class="empty-art" aria-hidden="true"><img src="assets/main-flower.jpg" alt=""></div>
               <h3>Explore the flower</h3>
               <p>Choose a part from the mobile remote or select it directly on the flower. Its picture and a short description will appear here.</p>
             </div>
@@ -412,15 +355,15 @@
       </button>
       <div class="remote-section-title"><strong>Select a flower part</strong><span>Tap to show details</span></div>
       <div class="remote-grid" id="remoteButtons">
-        <button class="remote-part-btn" data-remote-part="stamen" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20V8M12 8c-4-1-4-5 0-5s4 4 0 5Z"/><path d="M12 13c-3-2-6 0-5 3 3 1 4-1 5-3ZM12 13c3-2 6 0 5 3-3 1-4-1-5-3Z"/></svg></span><strong>Stamen</strong></button>
-        <button class="remote-part-btn" data-remote-part="anther" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V8"/><ellipse cx="12" cy="6" rx="4" ry="5"/></svg></span><strong>Anther</strong></button>
-        <button class="remote-part-btn" data-remote-part="filament" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V5"/><ellipse cx="12" cy="4" rx="3" ry="2"/></svg></span><strong>Filament</strong></button>
-        <button class="remote-part-btn" data-remote-part="stigma" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21v-9"/><path d="M12 12c-6 0-7-5-3-7 2-1 3 1 3 3 0-2 1-4 3-3 4 2 3 7-3 7Z"/></svg></span><strong>Stigma</strong></button>
-        <button class="remote-part-btn" data-remote-part="style" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c-2 5 2 7 0 18" stroke-linecap="round"/></svg></span><strong>Style</strong></button>
-        <button class="remote-part-btn" data-remote-part="ovary" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="13" rx="7" ry="8"/><path d="M12 5V3"/></svg></span><strong>Ovary</strong></button>
-        <button class="remote-part-btn" data-remote-part="petal" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21C2 16 5 5 12 3c7 2 10 13 0 18Z"/></svg></span><strong>Petal</strong></button>
-        <button class="remote-part-btn" data-remote-part="sepal" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18C4 8 12 3 21 4c-1 9-7 16-18 14Z"/><path d="m4 18 12-11"/></svg></span><strong>Sepal</strong></button>
-        <button class="remote-part-btn" data-remote-part="pollen" type="button"><span class="part-swatch"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="6"/><path d="m12 2 .7 2M12 20l.7 2M2 12l2 .7M20 12l2 .7M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></svg></span><strong>Pollen grain</strong></button>
+        <button class="remote-part-btn" data-remote-part="stamen" type="button"><span class="part-swatch"><img src="assets/stamen.jpg" alt=""></span><strong>Stamen</strong></button>
+        <button class="remote-part-btn" data-remote-part="anther" type="button"><span class="part-swatch"><img src="assets/anther.jpg" alt=""></span><strong>Anther</strong></button>
+        <button class="remote-part-btn" data-remote-part="filament" type="button"><span class="part-swatch"><img src="assets/filament.jpg" alt=""></span><strong>Filament</strong></button>
+        <button class="remote-part-btn" data-remote-part="stigma" type="button"><span class="part-swatch"><img src="assets/stigma.jpg" alt=""></span><strong>Stigma</strong></button>
+        <button class="remote-part-btn" data-remote-part="style" type="button"><span class="part-swatch"><img src="assets/style.jpg" alt=""></span><strong>Style</strong></button>
+        <button class="remote-part-btn" data-remote-part="ovary" type="button"><span class="part-swatch"><img src="assets/ovary.jpg" alt=""></span><strong>Ovary</strong></button>
+        <button class="remote-part-btn" data-remote-part="petal" type="button"><span class="part-swatch"><img src="assets/petal.jpg" alt=""></span><strong>Petal</strong></button>
+        <button class="remote-part-btn" data-remote-part="sepal" type="button"><span class="part-swatch"><img src="assets/sepal.jpg" alt=""></span><strong>Sepal</strong></button>
+        <button class="remote-part-btn" data-remote-part="pollen" type="button"><span class="part-swatch"><img src="assets/pollen.jpg" alt=""></span><strong>Pollen grain</strong></button>
       </div>
       <button class="btn btn-outline remote-retry" id="remoteRetryBtn" type="button">Reconnect to display</button>
       <div class="remote-footer">Keep this page open while teaching.<br>Only the selected part is sent to the Smart Board.</div>
@@ -432,68 +375,29 @@
       <button class="modal-close" id="closeRoomModal" aria-label="Close" type="button">×</button>
       <div class="eyebrow">Wireless classroom control</div>
       <h2 id="roomModalTitle">Connect your phone</h2>
-      <p>Scan this QR code with your phone camera, or open the remote link and enter the room code.</p>
+      <p>Copy the remote link to your phone, or open the same website on your phone and enter the room code.</p>
       <div class="room-content">
-        <div><div class="eyebrow">Your room code</div><div class="room-code-large" id="roomCodeText">------</div><div class="room-instruction">Both devices must have an internet connection. Keep this display page open.</div></div>
-        <div id="qrCode" aria-label="QR code for mobile remote"></div>
+        <div><div class="eyebrow">Your room code</div><div class="room-code-large" id="roomCodeText">--------</div><div class="room-instruction">Keep this display page open. Both devices need internet access.</div></div>
+        <div class="room-code-help"><div class="room-code-icon">↗</div><strong>Open on your phone</strong><span>Copy the link below, send it to your phone, and open it in a browser.</span></div>
       </div>
       <div class="remote-url"><input id="remoteUrlInput" type="text" readonly aria-label="Mobile remote link"><button class="btn btn-primary btn-small" id="copyRemoteUrlBtn" type="button">Copy</button></div>
     </div>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     (() => {
       'use strict';
 
       const PARTS = {
-        stamen: {
-          name: 'Stamen', category: 'Male reproductive part',
-          description: 'The stamen is the male reproductive part of a flower. It consists of two parts: the anther and the filament.',
-          art: 'stamen'
-        },
-        anther: {
-          name: 'Anther', category: 'Part of the stamen',
-          description: 'The anther is the upper part of the stamen. It produces pollen grains.',
-          art: 'anther'
-        },
-        filament: {
-          name: 'Filament', category: 'Part of the stamen',
-          description: 'The filament is the slender stalk of the stamen. It supports the anther.',
-          art: 'filament'
-        },
-        stigma: {
-          name: 'Stigma', category: 'Female reproductive part',
-          description: 'The stigma is the top part of the female reproductive part. It receives pollen grains.',
-          art: 'stigma'
-        },
-        style: {
-          name: 'Style', category: 'Female reproductive part',
-          description: 'The style is the slender part that connects the stigma to the ovary.',
-          art: 'style'
-        },
-        ovary: {
-          name: 'Ovary', category: 'Female reproductive part',
-          description: 'The ovary is the swollen lower part of the female reproductive part.',
-          art: 'ovary'
-        },
-        petal: {
-          name: 'Petal', category: 'Part of the flower',
-          description: 'Petals are often colourful parts of a flower. They help attract insects for pollination.',
-          art: 'petal'
-        },
-        sepal: {
-          name: 'Sepal', category: 'Part of the flower',
-          description: 'Sepals are usually green, leaf-like parts that protect the flower when it is in the bud stage.',
-          art: 'sepal'
-        },
-        pollen: {
-          name: 'Pollen grain', category: 'Produced by the anther',
-          description: 'Pollen grains are tiny particles produced in the anther. They carry the male reproductive cells.',
-          art: 'pollen'
-        }
+        stamen: { name: 'Stamen', category: 'Male reproductive part', description: 'The stamen is the male reproductive part of a flower. It consists of two parts: the anther and the filament.', art: 'stamen' },
+        anther: { name: 'Anther', category: 'Part of the stamen', description: 'The anther is the upper part of the stamen. It produces pollen grains.', art: 'anther' },
+        filament: { name: 'Filament', category: 'Part of the stamen', description: 'The filament is the slender stalk of the stamen. It supports the anther.', art: 'filament' },
+        stigma: { name: 'Stigma', category: 'Female reproductive part', description: 'The stigma is the top part of the female reproductive part. It receives pollen grains.', art: 'stigma' },
+        style: { name: 'Style', category: 'Female reproductive part', description: 'The style is the slender part that connects the stigma to the ovary.', art: 'style' },
+        ovary: { name: 'Ovary', category: 'Female reproductive part', description: 'The ovary is the swollen lower part of the female reproductive part.', art: 'ovary' },
+        petal: { name: 'Petal', category: 'Part of the flower', description: 'Petals are often colourful parts of a flower. They help attract insects for pollination.', art: 'petal' },
+        sepal: { name: 'Sepal', category: 'Part of the flower', description: 'Sepals are usually green, leaf-like parts that protect the flower when it is in the bud stage.', art: 'sepal' },
+        pollen: { name: 'Pollen grain', category: 'Produced by the anther', description: 'Pollen grains are tiny particles produced in the anther. They carry the male reproductive cells.', art: 'pollen' }
       };
 
       const $ = (id) => document.getElementById(id);
@@ -505,18 +409,17 @@
       const remoteOpenBtn = $('remoteOpenBtn');
       const toast = $('toast');
       let toastTimer = null;
-      let peer = null;
-      let displayConnection = null;
-      let displayConnections = new Set();
+      let mqttRoom = null;
       let roomCode = '';
       let selectedPart = null;
       let currentMode = 'welcome';
+      let phoneConnected = false;
 
       function showToast(message) {
         toast.textContent = message;
         toast.classList.add('show');
         window.clearTimeout(toastTimer);
-        toastTimer = window.setTimeout(() => toast.classList.remove('show'), 2400);
+        toastTimer = window.setTimeout(() => toast.classList.remove('show'), 2800);
       }
 
       function setHeaderStatus(message, state = '') {
@@ -546,21 +449,9 @@
       }
 
       function makePartArt(part) {
-        const common = 'viewBox="0 0 320 220" role="img" aria-label="Illustration of ' + (PARTS[part]?.name || 'flower part') + '"';
-        const wrap = (inside) => `<svg ${common} xmlns="http://www.w3.org/2000/svg">${inside}</svg>`;
-        const bg = '<circle cx="160" cy="110" r="83" fill="#e9eddf" opacity=".58"/>';
-        const arts = {
-          stamen: `<g stroke-linecap="round"><path d="M160 177C125 143 119 103 104 63M160 177C149 132 150 91 150 48M160 177C173 132 172 91 171 48M160 177C195 143 201 103 216 63" fill="none" stroke="#bd8737" stroke-width="8"/><g fill="#e6b54f" stroke="#a8782e" stroke-width="2"><ellipse cx="104" cy="61" rx="13" ry="24" transform="rotate(-20 104 61)"/><ellipse cx="150" cy="47" rx="12" ry="22"/><ellipse cx="171" cy="47" rx="12" ry="22"/><ellipse cx="216" cy="61" rx="13" ry="24" transform="rotate(20 216 61)"/></g></g>`,
-          anther: `<path d="M160 183V111" stroke="#bd8737" stroke-width="9" stroke-linecap="round"/><ellipse cx="160" cy="83" rx="35" ry="53" fill="#e6b54f" stroke="#a8782e" stroke-width="3"/><path d="M146 52c-8 15-10 35-4 51" stroke="#fff4cf" stroke-width="7" stroke-linecap="round" opacity=".75"/><g fill="#d39b37"><circle cx="122" cy="92" r="4"/><circle cx="193" cy="76" r="4"/><circle cx="181" cy="119" r="3"/></g>`,
-          filament: `<path d="M160 190C137 145 178 92 160 38" stroke="#bf8b3b" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M155 178C145 140 175 91 160 48" stroke="#efd094" stroke-width="3.5" fill="none" stroke-linecap="round"/><ellipse cx="160" cy="36" rx="13" ry="9" fill="#e6b54f" stroke="#a8782e" stroke-width="2"/>`,
-          stigma: `<path d="M160 181V100" stroke="#6a9068" stroke-width="12" stroke-linecap="round"/><path d="M160 103C117 105 105 70 129 48c16-14 29 2 31 19 2-17 15-33 31-19 24 22 12 57-31 55Z" fill="#a56c91" stroke="#754d70" stroke-width="3"/><path d="M132 65c12 7 22 20 28 38 6-18 16-31 28-38" fill="none" stroke="#e4bfd8" stroke-width="4" stroke-linecap="round"/>`,
-          style: `<path d="M160 190C144 151 176 111 160 38" stroke="#648b64" stroke-width="18" fill="none" stroke-linecap="round"/><path d="M155 178C146 145 171 105 157 48" stroke="#bed2a9" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M141 45c12-18 27-18 39 0" stroke="#9c6c8c" stroke-width="13" stroke-linecap="round" fill="none"/>`,
-          ovary: `<ellipse cx="160" cy="122" rx="53" ry="65" fill="#86a876" stroke="#527b51" stroke-width="4"/><ellipse cx="143" cy="100" rx="15" ry="28" fill="#d8e4c5" opacity=".55"/><path d="M160 56V34" stroke="#648b64" stroke-width="12" stroke-linecap="round"/>`,
-          petal: `<path d="M160 190C82 160 78 89 119 39c17-21 45-22 61-1 41 51 37 122-20 152Z" fill="#e79daf" stroke="#c9768d" stroke-width="3"/><path d="M158 174c-10-45-4-92 0-127 18 44 19 88 0 127Z" fill="#f7cbd3" opacity=".7"/>`,
-          sepal: `<path d="M56 157C65 68 137 30 245 49c-15 93-73 138-189 108Z" fill="#7d9e70" stroke="#527b51" stroke-width="4"/><path d="m64 153 143-91" stroke="#c5d7ad" stroke-width="5" stroke-linecap="round"/><path d="m115 120 16 1M150 98l18 1M185 78l18 1" stroke="#c5d7ad" stroke-width="3" stroke-linecap="round"/>`,
-          pollen: `<g fill="#e2b44e" stroke="#a77b2d" stroke-width="2"><circle cx="160" cy="112" r="49"/><circle cx="160" cy="51" r="7"/><circle cx="160" cy="173" r="7"/><circle cx="99" cy="112" r="7"/><circle cx="221" cy="112" r="7"/><circle cx="117" cy="69" r="7"/><circle cx="203" cy="69" r="7"/><circle cx="117" cy="155" r="7"/><circle cx="203" cy="155" r="7"/><circle cx="139" cy="105" r="5" fill="#f5d98e" stroke="none"/><circle cx="177" cy="132" r="5" fill="#f5d98e" stroke="none"/></g><path d="M143 78c-8 12-10 24-6 36" stroke="#fff0bd" stroke-width="7" stroke-linecap="round" opacity=".75"/>`
-        };
-        return wrap(bg + (arts[part] || arts.petal));
+        const data = PARTS[part];
+        if (!data) return '';
+        return `<img class="detail-art-image" src="assets/${data.art}.jpg" alt="${data.name} close-up">`;
       }
 
       function renderDetail(part) {
@@ -575,135 +466,249 @@
           <p class="detail-description">${data.description}</p>
           <div class="detail-bottom"><button class="btn btn-soft" id="detailHomeBtn" type="button">← Back to whole flower</button><div class="mini-note">Teaching note: This card is designed for the Class 9 flower dissection lesson.</div></div>`;
         $('detailHomeBtn').addEventListener('click', showWholeFlower);
-        document.querySelectorAll('#flowerSvg .part').forEach((el) => {
-          const isSelected = el.dataset.part === part || (part === 'stamen' && ['anther','filament'].includes(el.dataset.part));
+        document.querySelectorAll('#flowerHotspots .flower-hotspot').forEach((el) => {
+          const isSelected = el.dataset.part === part || (part === 'stamen' && ['anther', 'filament'].includes(el.dataset.part));
           el.classList.toggle('is-selected', isSelected);
         });
         document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.remotePart === part));
       }
 
-      function showWholeFlower() {
+      function showWholeFlower(fromRemote = false) {
         selectedPart = null;
         $('detailStep').textContent = 'WHOLE FLOWER';
-        $('detailBody').innerHTML = `<div class="empty-state"><div class="empty-art" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none"><g stroke="#C9768D" stroke-width="2"><ellipse cx="50" cy="24" rx="12" ry="22" fill="#E7A0B0"/><ellipse cx="28" cy="43" rx="12" ry="22" transform="rotate(-50 28 43)" fill="#F0C2CA"/><ellipse cx="72" cy="43" rx="12" ry="22" transform="rotate(50 72 43)" fill="#E7A0B0"/><ellipse cx="36" cy="68" rx="12" ry="22" transform="rotate(-120 36 68)" fill="#F0C2CA"/><ellipse cx="64" cy="68" rx="12" ry="22" transform="rotate(120 64 68)" fill="#E7A0B0"/></g><circle cx="50" cy="50" r="8" fill="#D8A647"/></svg></div><h3>Explore the flower</h3><p>Choose a part from the mobile remote or select it directly on the flower. Its picture and a short description will appear here.</p></div>`;
-        document.querySelectorAll('#flowerSvg .part').forEach((el) => el.classList.remove('is-selected'));
+        $('detailBody').innerHTML = `<div class="empty-state"><div class="empty-art" aria-hidden="true"><img src="assets/main-flower.jpg" alt=""></div><h3>Explore the flower</h3><p>Choose a labelled part from the mobile remote or select it directly on the flower. Its picture and a short description will appear here.</p></div>`;
+        document.querySelectorAll('#flowerHotspots .flower-hotspot').forEach((el) => el.classList.remove('is-selected'));
         document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.remove('active'));
-        sendToRemoteClients({ type: 'home' });
-      }
-
-      function sendToRemoteClients(message) {
-        displayConnections.forEach((conn) => {
-          if (conn && conn.open) {
-            try { conn.send(message); } catch (error) { console.warn('Could not send to remote:', error); }
-          }
-        });
+        if (!fromRemote && currentMode === 'display' && mqttRoom && mqttRoom.isReady) mqttRoom.publish({ type: 'home' });
       }
 
       function choosePart(part, fromRemote = false) {
         if (!PARTS[part]) return;
         renderDetail(part);
-        if (!fromRemote) sendToRemoteClients({ type: 'selection', part });
+        if (!fromRemote && currentMode === 'display' && mqttRoom && mqttRoom.isReady) mqttRoom.publish({ type: 'selection', part });
       }
 
       function makeRoomCode() {
         const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        const values = new Uint32Array(6);
+        const values = new Uint32Array(8);
         if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(values);
         else for (let i = 0; i < values.length; i++) values[i] = Math.floor(Math.random() * 100000);
         return Array.from(values, (n) => chars[n % chars.length]).join('');
       }
 
-      function updateConnectionCount() {
-        const count = Array.from(displayConnections).filter((conn) => conn && conn.open).length;
-        $('connectionCount').textContent = count ? `${count} phone${count === 1 ? '' : 's'} connected` : 'Waiting for phone';
-        setHeaderStatus(count ? `${count} phone${count === 1 ? '' : 's'} connected` : 'Room ready · waiting for phone', count ? 'connected' : '');
+      // Minimal MQTT 3.1.1 wire client. This uses the browser's native WebSocket,
+      // so no PeerJS, QR-code, or other JavaScript library needs to load.
+      const encoder = new TextEncoder();
+      const decoder = new TextDecoder();
+      function concatBytes(...chunks) {
+        const length = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+        const out = new Uint8Array(length);
+        let offset = 0;
+        chunks.forEach((chunk) => { out.set(chunk, offset); offset += chunk.length; });
+        return out;
+      }
+      function mqttString(value) {
+        const bytes = encoder.encode(value);
+        return concatBytes(Uint8Array.of((bytes.length >> 8) & 255, bytes.length & 255), bytes);
+      }
+      function encodeRemainingLength(length) {
+        const bytes = [];
+        do {
+          let digit = length % 128;
+          length = Math.floor(length / 128);
+          if (length > 0) digit |= 0x80;
+          bytes.push(digit);
+        } while (length > 0);
+        return new Uint8Array(bytes);
+      }
+      function mqttPacket(header, body) {
+        return concatBytes(Uint8Array.of(header), encodeRemainingLength(body.length), body);
       }
 
-      function closePeer() {
-        if (displayConnection) {
-          try { displayConnection.close(); } catch (_) {}
-          displayConnection = null;
+      class FlowerMqttRoom {
+        constructor(role, room, onMessage, onStatus) {
+          this.role = role;
+          this.room = room;
+          this.topic = `flowerlab/classroom/${room}`;
+          this.clientId = `flower${role === 'display' ? 'd' : 'r'}${Math.random().toString(36).slice(2, 15)}`.slice(0, 22);
+          this.onMessage = onMessage;
+          this.onStatus = onStatus;
+          this.ws = null;
+          this.isReady = false;
+          this.closedByUser = false;
+          this.pingTimer = null;
+          this.connectTimer = null;
+          this.packetId = 1;
         }
-        displayConnections.forEach((conn) => { try { conn.close(); } catch (_) {} });
-        displayConnections.clear();
-        if (peer) {
-          try { peer.destroy(); } catch (_) {}
-          peer = null;
-        }
-      }
-
-      function startDisplay() {
-        showScreen('display');
-        showWholeFlower();
-        if (!window.Peer) {
-          setHeaderStatus('Remote library unavailable', 'error');
-          showToast('Internet connection is needed for the phone remote.');
-          return;
-        }
-        closePeer();
-        roomCode = makeRoomCode();
-        setHeaderStatus('Creating room…');
-        const peerId = `flowerlab-${roomCode.toLowerCase()}`;
-        try {
-          peer = new Peer(peerId, { host: '0.peerjs.com', port: 443, path: '/', secure: true, debug: 1 });
-        } catch (error) {
-          setHeaderStatus('Could not create room', 'error');
-          console.error(error);
-          return;
-        }
-        peer.on('open', (id) => {
-          console.log('Flower Lab room ready:', id);
-          setHeaderStatus('Room ready · waiting for phone');
-          buildRemoteLink();
-        });
-        peer.on('connection', (conn) => {
-          displayConnections.add(conn);
-          conn.on('open', () => {
-            updateConnectionCount();
-            conn.send({ type: 'display-ready', part: selectedPart });
-          });
-          conn.on('data', (message) => {
-            if (!message || typeof message !== 'object') return;
-            if (message.type === 'select' && PARTS[message.part]) choosePart(message.part, true);
-            if (message.type === 'home') showWholeFlower();
-          });
-          conn.on('close', () => { displayConnections.delete(conn); updateConnectionCount(); });
-          conn.on('error', (error) => { console.warn('Remote connection error:', error); displayConnections.delete(conn); updateConnectionCount(); });
-        });
-        peer.on('error', (error) => {
-          console.error('PeerJS error:', error);
-          if (error.type === 'unavailable-id') {
-            roomCode = makeRoomCode();
-            closePeer();
-            startDisplay();
+        connect() {
+          this.onStatus('connecting');
+          try {
+            this.ws = new WebSocket('wss://broker.emqx.io:8084/mqtt', ['mqtt']);
+            this.ws.binaryType = 'arraybuffer';
+          } catch (error) {
+            this.onStatus('error', 'This browser could not open the secure connection.');
             return;
           }
-          setHeaderStatus('Connection issue', 'error');
-          showToast('Could not start the wireless room. Please try again.');
-        });
-        peer.on('disconnected', () => setHeaderStatus('Reconnecting room…'));
+          this.connectTimer = window.setTimeout(() => {
+            if (!this.isReady) this.onStatus('error', 'The wireless service did not respond. Check the internet connection and try again.');
+          }, 16000);
+          this.ws.addEventListener('open', () => this.sendConnectPacket());
+          this.ws.addEventListener('message', (event) => this.handleData(event.data));
+          this.ws.addEventListener('error', () => {
+            if (!this.closedByUser) this.onStatus('error', 'Could not reach the wireless service. Check your internet or network restrictions.');
+          });
+          this.ws.addEventListener('close', () => {
+            this.stopTimers();
+            this.isReady = false;
+            if (!this.closedByUser) this.onStatus('error', 'Wireless connection closed. Press reconnect or restart the display.');
+          });
+        }
+        sendRaw(bytes) {
+          if (this.ws && this.ws.readyState === WebSocket.OPEN) this.ws.send(bytes);
+        }
+        sendConnectPacket() {
+          const variableHeader = concatBytes(mqttString('MQTT'), Uint8Array.of(4, 2, 0, 45));
+          const payload = mqttString(this.clientId);
+          this.sendRaw(mqttPacket(0x10, concatBytes(variableHeader, payload)));
+        }
+        subscribe() {
+          const id = this.packetId++;
+          const body = concatBytes(Uint8Array.of((id >> 8) & 255, id & 255), mqttString(this.topic), Uint8Array.of(0));
+          this.sendRaw(mqttPacket(0x82, body));
+        }
+        publish(message) {
+          if (!this.isReady) return false;
+          const payload = encoder.encode(JSON.stringify({ ...message, sender: this.clientId }));
+          this.sendRaw(mqttPacket(0x30, concatBytes(mqttString(this.topic), payload)));
+          return true;
+        }
+        handleData(data) {
+          let bytes;
+          if (data instanceof ArrayBuffer) bytes = new Uint8Array(data);
+          else if (ArrayBuffer.isView(data)) bytes = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+          else return;
+          let offset = 0;
+          while (offset + 2 <= bytes.length) {
+            const header = bytes[offset++];
+            let remaining = 0, multiplier = 1, digit;
+            do {
+              if (offset >= bytes.length) return;
+              digit = bytes[offset++];
+              remaining += (digit & 127) * multiplier;
+              multiplier *= 128;
+            } while ((digit & 128) !== 0 && multiplier <= 128 * 128 * 128 * 128);
+            if (offset + remaining > bytes.length) return;
+            const body = bytes.slice(offset, offset + remaining);
+            offset += remaining;
+            this.handlePacket(header, body);
+          }
+        }
+        handlePacket(header, body) {
+          const type = header >> 4;
+          if (type === 2) { // CONNACK
+            const result = body.length > 1 ? body[1] : 255;
+            if (result !== 0) {
+              this.onStatus('error', `Wireless service refused the connection (code ${result}).`);
+              return;
+            }
+            this.subscribe();
+          } else if (type === 9) { // SUBACK
+            window.clearTimeout(this.connectTimer);
+            this.isReady = true;
+            this.pingTimer = window.setInterval(() => this.sendRaw(Uint8Array.of(0xC0, 0x00)), 20000);
+            this.onStatus('ready');
+          } else if (type === 3) { // PUBLISH (our topic is subscribed at QoS 0)
+            if (body.length < 2) return;
+            const topicLength = (body[0] << 8) | body[1];
+            if (body.length < 2 + topicLength) return;
+            const topic = decoder.decode(body.slice(2, 2 + topicLength));
+            if (topic !== this.topic) return;
+            let payloadStart = 2 + topicLength;
+            const qos = (header >> 1) & 3;
+            if (qos > 0) payloadStart += 2;
+            try {
+              const message = JSON.parse(decoder.decode(body.slice(payloadStart)));
+              if (message && message.sender !== this.clientId) this.onMessage(message);
+            } catch (_) { /* Ignore malformed messages on the shared public broker. */ }
+          }
+        }
+        stopTimers() {
+          window.clearTimeout(this.connectTimer);
+          window.clearInterval(this.pingTimer);
+        }
+        disconnect() {
+          this.closedByUser = true;
+          this.stopTimers();
+          if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+            try { this.sendRaw(Uint8Array.of(0xE0, 0x00)); } catch (_) {}
+            this.ws.close();
+          } else if (this.ws) this.ws.close();
+          this.isReady = false;
+        }
       }
 
-      function buildRemoteLink() {
+      function closeMqttRoom() {
+        if (mqttRoom) {
+          mqttRoom.disconnect();
+          mqttRoom = null;
+        }
+      }
+
+      function setPhoneConnection(connected) {
+        phoneConnected = connected;
+        $('connectionCount').textContent = connected ? 'Phone remote connected' : 'Waiting for phone';
+        setHeaderStatus(connected ? 'Phone remote connected' : 'Room ready · waiting for phone', connected ? 'connected' : '');
+      }
+
+      function makeRemoteLink() {
         const url = new URL(window.location.href);
         url.search = '';
         url.hash = '';
         url.searchParams.set('mode', 'remote');
         url.searchParams.set('room', roomCode);
-        const remoteUrl = url.toString();
         $('roomCodeText').textContent = roomCode;
-        $('remoteUrlInput').value = remoteUrl;
-        $('qrCode').innerHTML = '';
-        if (window.QRCode) {
-          new QRCode($('qrCode'), { text: remoteUrl, width: 136, height: 136, colorDark: '#173d32', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
-        } else {
-          $('qrCode').textContent = 'QR unavailable';
+        $('remoteUrlInput').value = url.toString();
+      }
+
+      function handleDisplayMessage(message) {
+        if (!message || typeof message !== 'object') return;
+        if (message.type === 'hello') {
+          setPhoneConnection(true);
+          mqttRoom?.publish({ type: 'display-ready', part: selectedPart || '' });
+        } else if (message.type === 'select' && PARTS[message.part]) {
+          choosePart(message.part, true);
+        } else if (message.type === 'home') {
+          showWholeFlower(true);
+        } else if (message.type === 'phone-gone') {
+          setPhoneConnection(false);
         }
+      }
+
+      function startDisplay() {
+        showScreen('display');
+        closeMqttRoom();
+        roomCode = makeRoomCode();
+        phoneConnected = false;
+        showWholeFlower(true);
+        makeRemoteLink();
+        $('connectionCount').textContent = 'Connecting to wireless service…';
+        setHeaderStatus('Connecting to wireless service…');
+        mqttRoom = new FlowerMqttRoom('display', roomCode, handleDisplayMessage, (state, detail) => {
+          if (state === 'ready') {
+            setHeaderStatus('Room ready · waiting for phone');
+            $('connectionCount').textContent = 'Waiting for phone';
+          } else if (state === 'error') {
+            setHeaderStatus('Wireless connection unavailable', 'error');
+            $('connectionCount').textContent = detail || 'Wireless connection unavailable';
+            showToast(detail || 'Could not connect to wireless service. Try again.');
+          } else setHeaderStatus('Connecting to wireless service…');
+        });
+        mqttRoom.connect();
       }
 
       function openRoomModal() {
         if (!roomCode) {
-          showToast('The room is still starting. Please try again.');
+          showToast('Start the main display first.');
           return;
         }
         $('roomModal').classList.add('show');
@@ -712,92 +717,59 @@
 
       function connectRemote(code) {
         const room = (code || '').trim().toUpperCase();
-        if (!/^[A-HJ-NP-Z2-9]{6}$/.test(room)) {
-          showToast('Enter the 6-character room code shown on the display.');
+        if (!/^[A-HJ-NP-Z2-9]{8}$/.test(room)) {
+          showToast('Enter the 8-character room code shown on the Smart Board.');
           return;
         }
         showScreen('remote');
-        $('remoteStatusSub').textContent = `Room code: ${room}`;
-        setRemoteStatus('Connecting to display…', `Room code: ${room}`);
-        if (!window.Peer) {
-          setRemoteStatus('Remote connection unavailable', `Room code: ${room}`, 'error');
-          showToast('Please check your internet connection.');
-          return;
-        }
-        if (peer) { try { peer.destroy(); } catch (_) {} peer = null; }
-        if (displayConnection) { try { displayConnection.close(); } catch (_) {} displayConnection = null; }
-        try {
-          peer = new Peer({ host: '0.peerjs.com', port: 443, path: '/', secure: true, debug: 1 });
-          peer.on('open', () => {
-            displayConnection = peer.connect(`flowerlab-${room.toLowerCase()}`, { reliable: true });
-            displayConnection.on('open', () => {
-              setRemoteStatus('Connected to Smart Board', `Room code: ${room}`, 'connected');
-              showToast('Remote connected. Choose a flower part.');
-            });
-            displayConnection.on('data', (message) => {
-              if (!message || typeof message !== 'object') return;
-              if (message.type === 'display-ready') {
-                if (message.part && PARTS[message.part]) {
-                  document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.remotePart === message.part));
-                }
-              }
-              if (message.type === 'selection' && PARTS[message.part]) {
-                document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.remotePart === message.part));
-              }
-              if (message.type === 'home') {
-                document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.remove('active'));
-              }
-            });
-            displayConnection.on('close', () => setRemoteStatus('Display disconnected', `Room code: ${room}`, 'error'));
-            displayConnection.on('error', (error) => {
-              console.warn('Remote connection error:', error);
-              setRemoteStatus('Could not connect', `Room code: ${room}`, 'error');
-            });
-          });
-          peer.on('error', (error) => {
-            console.warn('Remote PeerJS error:', error);
-            if (error.type === 'peer-unavailable') {
-              setRemoteStatus('Room not found', `Check code: ${room}`, 'error');
-              showToast('Check the room code and try again.');
-            } else {
-              setRemoteStatus('Connection issue', `Room code: ${room}`, 'error');
+        roomCode = room;
+        closeMqttRoom();
+        setRemoteStatus('Connecting to wireless service…', `Room code: ${room}`);
+        mqttRoom = new FlowerMqttRoom('remote', room, (message) => {
+          if (!message || typeof message !== 'object') return;
+          if (message.type === 'display-ready') {
+            setRemoteStatus('Connected to Smart Board', `Room code: ${room}`, 'connected');
+            showToast('Remote connected. Choose a flower part.');
+            if (message.part && PARTS[message.part]) {
+              document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.remotePart === message.part));
             }
-          });
-        } catch (error) {
-          console.error(error);
-          setRemoteStatus('Could not connect', `Room code: ${room}`, 'error');
-        }
+          } else if (message.type === 'selection' && PARTS[message.part]) {
+            document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.remotePart === message.part));
+          } else if (message.type === 'home') {
+            document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.remove('active'));
+          }
+        }, (state, detail) => {
+          if (state === 'ready') {
+            setRemoteStatus('Waiting for Smart Board…', `Room code: ${room}`);
+            mqttRoom?.publish({ type: 'hello' });
+          } else if (state === 'error') setRemoteStatus('Connection unavailable', detail || `Room code: ${room}`, 'error');
+          else setRemoteStatus('Connecting…', `Room code: ${room}`);
+        });
+        mqttRoom.connect();
       }
 
       function sendRemoteAction(action, part) {
-        if (!displayConnection || !displayConnection.open) {
-          showToast('Not connected. Reconnect to the Smart Board.');
+        if (!mqttRoom || !mqttRoom.isReady) {
+          showToast('Not connected. Check the room code and reconnect.');
           return;
         }
-        try {
-          displayConnection.send(action === 'home' ? { type: 'home' } : { type: 'select', part });
-          if (action === 'home') {
-            document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.remove('active'));
-            showToast('Showing the whole flower');
-          } else {
-            document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.remotePart === part));
-            showToast(`${PARTS[part].name} selected`);
-          }
-        } catch (error) {
-          console.error(error);
-          showToast('Could not send command. Please reconnect.');
+        const sent = mqttRoom.publish(action === 'home' ? { type: 'home' } : { type: 'select', part });
+        if (!sent) {
+          showToast('Could not send the command. Please reconnect.');
+          return;
+        }
+        if (action === 'home') {
+          document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.remove('active'));
+          showToast('Showing the whole flower');
+        } else {
+          document.querySelectorAll('.remote-part-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.remotePart === part));
+          showToast(`${PARTS[part].name} selected`);
         }
       }
 
-      // Flower can also be explored directly from the Smart Board.
-      document.querySelectorAll('#flowerSvg .part').forEach((partEl) => {
+      // Direct selection on the Smart Board is available as a backup.
+      document.querySelectorAll('#flowerHotspots .flower-hotspot').forEach((partEl) => {
         partEl.addEventListener('click', () => choosePart(partEl.dataset.part));
-        partEl.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            choosePart(partEl.dataset.part);
-          }
-        });
       });
 
       $('startDisplayBtn').addEventListener('click', () => {
@@ -810,8 +782,9 @@
       });
       $('joinForm').addEventListener('submit', (event) => {
         event.preventDefault();
-        connectRemote($('joinCodeInput').value);
-        const url = new URL(window.location.href); url.search = ''; url.searchParams.set('mode', 'remote'); url.searchParams.set('room', $('joinCodeInput').value.trim().toUpperCase()); history.replaceState({}, '', url);
+        const code = $('joinCodeInput').value.trim().toUpperCase();
+        connectRemote(code);
+        const url = new URL(window.location.href); url.search = ''; url.searchParams.set('mode', 'remote'); url.searchParams.set('room', code); history.replaceState({}, '', url);
       });
       $('showRemoteBtn').addEventListener('click', openRoomModal);
       remoteOpenBtn.addEventListener('click', openRoomModal);
@@ -819,8 +792,8 @@
       $('roomModal').addEventListener('click', (event) => { if (event.target === $('roomModal')) closeRoomModal(); });
       $('resetViewBtn').addEventListener('click', () => showWholeFlower());
       $('copyRemoteUrlBtn').addEventListener('click', async () => {
-        try { await navigator.clipboard.writeText($('remoteUrlInput').value); showToast('Remote link copied'); }
-        catch (_) { $('remoteUrlInput').select(); document.execCommand('copy'); showToast('Remote link copied'); }
+        try { await navigator.clipboard.writeText($('remoteUrlInput').value); showToast('Remote link copied. Send it to your phone.'); }
+        catch (_) { $('remoteUrlInput').select(); document.execCommand('copy'); showToast('Remote link copied. Send it to your phone.'); }
       });
       $('remoteHomeBtn').addEventListener('click', () => sendRemoteAction('home'));
       $('remoteButtons').addEventListener('click', (event) => {
@@ -832,7 +805,6 @@
         connectRemote(room);
       });
 
-      // Open directly into the requested role when a GitHub Pages URL has query parameters.
       const params = new URLSearchParams(window.location.search);
       const mode = params.get('mode');
       const queryRoom = params.get('room');
@@ -840,9 +812,7 @@
       else if (mode === 'remote' && queryRoom) connectRemote(queryRoom);
       else showScreen('welcome');
 
-      window.addEventListener('beforeunload', () => {
-        if (peer) { try { peer.destroy(); } catch (_) {} }
-      });
+      window.addEventListener('beforeunload', () => closeMqttRoom());
     })();
   </script>
 </body>
